@@ -1,16 +1,11 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
-
-// MIDDLEWARE
-function logger(req, res, next){
-    console.log('Route received:'+req.protocol+'://'+req.get('host')+req.originalUrl);
-    next();
-}
 
 
 // Set it before all routes to check info sent using Postman (POST Method)
 app.use(express.json());
-app.use(logger);
+app.use(morgan('dev'));
 
 
 app.get('/user', (req, res)=>{
@@ -23,6 +18,7 @@ app.get('/user', (req, res)=>{
 app.post('/user/:id', (req, res)=>{
     console.log(req.body);
     console.log(req.params);
+    res.send('POST REQUEST RECEIVED');
 });
 
 app.put('/user/:id', (req, res)=>{
