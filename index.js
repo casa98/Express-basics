@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 
+// MIDDLEWARE
+function logger(req, res, next){
+    console.log('Route received:'+req.protocol+'://'+req.get('host')+req.originalUrl);
+    next();
+}
+
+
 // Set it before all routes to check info sent using Postman (POST Method)
 app.use(express.json());
+app.use(logger);
 
-// This function is executed before we reach routes
-app.all('/user', (req, res, next)=>{
-    console.log('Por aquí pasé');
-    next();
-});
 
 app.get('/user', (req, res)=>{
     res.json({
