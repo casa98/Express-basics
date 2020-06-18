@@ -13,9 +13,16 @@ app.set('port', 3000);
 app.use(express.json());
 app.use(morgan('dev'));
 
+app.set('view engine', 'ejs');
 
 
 // ROUTES
+
+app.get('/', (req, res)=>{
+    const names = [{name: 'Jhon'}, {name: 'lenon'}, {name: 'Marx'}];
+    res.render('index.ejs', {people: names});
+})
+
 app.get('/user', (req, res)=>{
     res.json({
         name: "Andrés",
