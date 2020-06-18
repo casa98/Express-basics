@@ -3,11 +3,19 @@ const morgan = require('morgan');
 const app = express();
 
 
+// SETTINGS
+app.set('appName', 'Basic Express Tutorial');
+app.set('port', 3000);
+
+
+// MIDDLEWARES
 // Set it before all routes to check info sent using Postman (POST Method)
 app.use(express.json());
 app.use(morgan('dev'));
 
 
+
+// ROUTES
 app.get('/user', (req, res)=>{
     res.json({
         name: "Andrés",
@@ -35,6 +43,7 @@ app.delete('/user/:id', (req, res)=>{
 app.use(express.static('public'));
 
 
-app.listen(3000, ()=>{
-    console.log("Server running on port 3000");
+app.listen(app.get('port'), ()=>{
+    console.log(app.get('appName'));
+    console.log("Server running on port", app.get('port'));
 });
